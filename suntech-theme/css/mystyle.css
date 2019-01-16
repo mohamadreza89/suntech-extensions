@@ -1,0 +1,89 @@
+
+
+@font-face {
+    font-family: 'BYekan';
+    src: url('b_yekan/BYekan.eot');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BYekan';
+    src: url('b_yekan/BYekan.eot'),
+         url('b_yekan/BYekan.woff'),
+         url('b_yekan/BYekan.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+body{
+    background-color: #ccf;
+}
+
+#top-bar-table , #logo , #menu , .header-menu , .ui-accordion-content , .ui-layout-resizer , #left-pane , .main_header , #itop-breadcrumb , div#top-left , #top-bar-table-breadcrumb{
+    background-color: #456989;
+    /* #456989 */
+    /* #0F2538 */
+}
+
+
+.truncate , a.summary {
+    color:white;
+}
+
+.main_header h1{
+    color: #aed2e6;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background: #FFF url("");
+}
+
+div[id*="ui-accordion-accordion-panel"]{
+    background: #FFF url("");
+}
+
+body, h1, h2, h3, p , button, span {
+    font-family: 'BYekan' !important;
+}
+
+.field_label span {
+    font-size: 14px;
+    font-weight: lighter !important;
+}
+
+button {
+    font-size: 13px;
+}
+
+td.dashboard  , .dashlet-content{
+    background-color: #efefff;
+}
+
+.dashlet{
+    margin-top: 3px;
+    position: relative;
+}
+
+
+.dashlet::before , .dashlet::after{
+    width: 0;
+    height: 2px;
+    content: "";
+    background-color: #456989;
+    position: absolute;
+    transition: all 0.2s ease-out;
+    left: 50%;
+    top: 0;
+}
+.dashlet::before{
+    top: 100%;
+}
+
+
+.dashlet:hover::before , .dashlet:hover::after{
+    width: 100%;
+    left: 0;
+}

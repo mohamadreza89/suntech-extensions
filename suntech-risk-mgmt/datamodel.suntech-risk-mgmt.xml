@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
+  <constants>
+  </constants>
+  <classes>
+    <class id="Risk" _delta="define">
+      <parent>cmdbAbstractObject</parent>
+      <properties>
+        <comment><![CDATA[/**
+ * Persistent classes for a CMDB
+ *
+ * @copyright   Copyright (C) 2010-2017 Combodo SARL
+ * @license     http://opensource.org/licenses/AGPL-3.0
+ */]]></comment>
+        <category>bizmodel,searchable,structure</category>
+        <abstract>false</abstract>
+        <key_type>autoincrement</key_type>
+        <db_table>risk</db_table>
+        <db_key_field>id</db_key_field>
+        <db_final_class_field>finalclass</db_final_class_field>
+        <naming>
+          <attributes>
+            <attribute id="name"/>
+          </attributes>
+        </naming>
+        <reconciliation>
+          <attributes>
+            <attribute id="name" />
+            <attribute id="description" />
+          </attributes>
+        </reconciliation>
+      </properties>
+      <fields>
+        <field id="name" xsi:type="AttributeString">
+          <sql>name</sql>
+          <default_value />
+          <is_null_allowed>false</is_null_allowed>
+        </field>
+        <field id="status" xsi:type="AttributeEnum">
+          <values>
+            <value id="open" >open</value>
+              <value id="closed">closed</value>
+          </values>
+          <sql>status</sql>
+          <default_value />
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="impact" xsi:type="AttributeEnum">
+          <values>
+            <value id="1" >1</value>
+            <value id="2">2</value>
+            <value id="3" >3</value>
+          </values>
+          <sql>impact</sql>
+          <default_value />
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="occurrence-probability" xsi:type="AttributeEnum">
+          <values>
+            <value id="1" >1</value>
+            <value id="2">2</value>
+            <value id="3">3</value>
+            <value id="4">4</value>
+          </values>
+          <sql>occurrence-probability</sql>
+          <default_value />
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="priority" xsi:type="AttributeEnum">
+          <values>
+            <value id="1" >1</value>
+            <value id="2">2</value>
+            <value id="3">3</value>
+            <value id="4">4</value>
+          </values>
+          <dependencies>
+            <attribute id="impact"/>
+            <attribute id="occurrence-probability"/>
+          </dependencies>
+          <sql>priority</sql>
+          <default_value />
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="risk-response-strategy" xsi:type="AttributeEnum">
+          <values>
+            <value id="Accept" >Accept</value>
+            <value id="Avoid" >Avoid</value>
+            <value id="Control" >Control</value>
+            <value id="Transfer">Transfer</value>
+          </values>
+          <sql>risk-response-strategy</sql>
+          <default_value />
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        
+        <field id="description" xsi:type="AttributeText">
+          <sql>description</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="service-impact" xsi:type="AttributeText">
+          <sql>service-impact</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="risk-area" xsi:type="AttributeText">
+          <sql>risk-area</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="symptoms" xsi:type="AttributeText">
+          <sql>symptoms</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="trigger" xsi:type="AttributeText">
+          <sql>trigger</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="response-strategy" xsi:type="AttributeText">
+          <sql>response-strategy</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="contingency-plan" xsi:type="AttributeText">
+          <sql>contingency-plan</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="change_list" xsi:type="AttributeLinkedSetIndirect">
+          <linked_class>lnkRiskToChange</linked_class>
+          <ext_key_to_me>risk_id</ext_key_to_me>
+          <count_min>0</count_min>
+          <count_max>0</count_max>
+          <ext_key_to_remote>change_id</ext_key_to_remote>
+          <duplicates/>
+        </field>
+        <field id="service_list" xsi:type="AttributeLinkedSetIndirect">
+          <linked_class>lnkRiskToService</linked_class>
+          <ext_key_to_me>risk_id</ext_key_to_me>
+          <count_min>0</count_min>
+          <count_max>0</count_max>
+          <ext_key_to_remote>service_id</ext_key_to_remote>
+          <duplicates/>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="col:col0">
+              <rank>10</rank>
+              <items>
+                <item id="fieldset:Risk:baseinfo">
+                  <rank>10</rank>
+                  <items>
+                    <item id="name">
+                      <rank>5</rank>
+                    </item>
+                    <item id="status">
+                      <rank>10</rank>
+                    </item>
+                    <item id="occurrence-probability">
+                      <rank>20</rank>
+                    </item>
+                    <item id="impact">
+                      <rank>30</rank>
+                    </item>
+                    <item id="priority">
+                      <rank>40</rank>
+                    </item>
+                    <item id="risk-response-strategy">
+                      <rank>50</rank>
+                    </item>
+                    <item id="description">
+                      <rank>60</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+            <item id="col:col1">
+              <rank>20</rank>
+              <items>
+                <item id="fieldset:Risk:more">
+                  <rank>10</rank>
+                  <items>
+                    <item id="service-impact">
+                      <rank>10</rank>
+                    </item>
+                    <item id="risk-area">
+                      <rank>20</rank>
+                    </item>
+                    <item id="symptoms">
+                      <rank>30</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+            <item id="col:col2">
+              <rank>20</rank>
+              <items>
+                <item id="fieldset:Risk:more">
+                  <rank>10</rank>
+                  <items>
+                    <item id="trigger">
+                      <rank>10</rank>
+                    </item>
+                    <item id="response-strategy">
+                      <rank>20</rank>
+                    </item>
+                    <item id="contingency-plan">
+                      <rank>30</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+            <item id="change_list">
+              <rank>130</rank>
+            </item>
+            <item id="service_list">
+              <rank>140</rank>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="name">
+              <rank>5</rank>
+            </item>
+            <item id="status">
+              <rank>10</rank>
+            </item>
+            <item id="occurrence-probability">
+              <rank>20</rank>
+            </item>
+            <item id="impact">
+              <rank>30</rank>
+            </item>
+            <item id="priority">
+              <rank>40</rank>
+            </item>
+            <item id="risk-response-strategy">
+              <rank>50</rank>
+            </item>
+            <item id="description">
+              <rank>60</rank>
+            </item>
+            <item id="service-impact">
+              <rank>70</rank>
+            </item>
+            <item id="risk-area">
+              <rank>80</rank>
+            </item>
+            <item id="symptoms">
+              <rank>90</rank>
+            </item>
+            <item id="trigger">
+              <rank>100</rank>
+            </item>
+            <item id="response-strategy">
+              <rank>110</rank>
+            </item>
+            <item id="contingency-plan">
+              <rank>120</rank>
+            </item>
+          </items>
+        </search>
+        <list>
+          <items>
+            <item id="name">
+              <rank>5</rank>
+            </item>
+            <item id="status">
+              <rank>10</rank>
+            </item>
+            <item id="occurrence-probability">
+              <rank>20</rank>
+            </item>
+            <item id="impact">
+              <rank>30</rank>
+            </item>
+            <item id="priority">
+              <rank>40</rank>
+            </item>
+            <item id="risk-response-strategy">
+              <rank>50</rank>
+            </item>
+            <item id="description">
+              <rank>60</rank>
+            </item>
+            <item id="service-impact">
+              <rank>70</rank>
+            </item>
+            <item id="risk-area">
+              <rank>80</rank>
+            </item>
+            <item id="symptoms">
+              <rank>90</rank>
+            </item>
+            <item id="trigger">
+              <rank>100</rank>
+            </item>
+            <item id="response-strategy">
+              <rank>110</rank>
+            </item>
+            <item id="contingency-plan">
+              <rank>120</rank>
+            </item>
+          </items>
+        </list>
+      </presentation>
+      <methods>
+        <method id="ComputePriority">
+          <comment>/** Compute the priority of the ticket based on its impact and occurrence-probability&#13;
+            * @return integer The priority of the ticket 1(high) .. 3(low)&#13;
+            */</comment>
+          <static>false</static>
+          <access>public</access>
+          <type>LifecycleAction</type>
+          <code><![CDATA[        public function ComputePriority()
+        {
+                // priority[impact][occurrence-probability]
+                $aPriorities = array(
+                        // a department
+                        1 => array(
+                                        1 => 1,
+                                        2 => 1,
+                                        3 => 2,
+                                        4 => 4,
+                        ),
+                        // a group
+                        2 => array(
+                                1 => 1,
+                                2 => 2,
+                                3 => 3,
+                                4 => 4,
+                        ),
+                        // a person
+                        3 => array(
+                                        1 => 2,
+                                        2 => 3,
+                                        3 => 3,
+                                        4 => 4,
+                        ),
+                );
+                $iPriority = 1;
+                if (isset($aPriorities[(int)$this->Get('impact')]) && isset($aPriorities[(int)$this->Get('impact')][(int)$this->Get('occurrence-probability')]))
+                {
+                        $iPriority = $aPriorities[(int)$this->Get('impact')][(int)$this->Get('occurrence-probability')];
+                }
+                return $iPriority;              
+        }]]></code>
+        </method>
+        <method id="ComputeValues">
+          <static>false</static>
+          <access>public</access>
+          <type>Overload-DBObject</type>
+          <code><![CDATA[ public function ComputeValues()
+  {
+    // Compute the priority of the ticket
+    $this->Set('priority', $this->ComputePriority());
+
+    return parent::ComputeValues();
+  }]]></code>
+        </method>
+      </methods>
+    </class>
+    <class id="lnkRiskToChange" _delta="define">
+      <parent>cmdbAbstractObject</parent>
+      <properties>
+        <is_link>1</is_link>
+        <category>bizmodel</category>
+        <abstract>false</abstract>
+        <key_type>autoincrement</key_type>
+        <db_table>lnkrisktochange</db_table>
+        <db_key_field>id</db_key_field>
+        <db_final_class_field/>
+        <naming>
+          <attributes>
+            <attribute id="change_id"/>
+            <attribute id="risk_id"/>
+          </attributes>
+        </naming>
+        <display_template/>
+        <icon/>
+        <reconciliation>
+          <attributes>
+            <attribute id="change_id"/>
+            <attribute id="risk_id"/>
+          </attributes>
+        </reconciliation>
+      </properties>
+      <fields>
+        <field id="risk_id" xsi:type="AttributeExternalKey">
+          <sql>risk_id</sql>
+          <target_class>Risk</target_class>
+          <is_null_allowed>true</is_null_allowed>
+          <on_target_delete>DEL_AUTO</on_target_delete>
+        </field>
+        <field id="risk_name" xsi:type="AttributeExternalField">
+          <extkey_attcode>risk_id</extkey_attcode>
+          <target_attcode>name</target_attcode>
+        </field>
+        <field id="change_id" xsi:type="AttributeExternalKey">
+          <sql>change_id</sql>
+          <target_class>Change</target_class>
+          <is_null_allowed>true</is_null_allowed>
+          <on_target_delete>DEL_AUTO</on_target_delete>
+        </field>
+        <field id="change_name" xsi:type="AttributeExternalField">
+          <extkey_attcode>change_id</extkey_attcode>
+          <target_attcode>title</target_attcode>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="risk_id">
+              <rank>10</rank>
+            </item>
+            <item id="change_id">
+              <rank>20</rank>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="risk_id">
+              <rank>10</rank>
+            </item>
+            <item id="change_id">
+              <rank>20</rank>
+            </item>
+          </items>
+        </search>
+        <list>
+          <items>
+            <item id="risk_id">
+              <rank>10</rank>
+            </item>
+            <item id="change_id">
+              <rank>20</rank>
+            </item>
+          </items>
+        </list>
+      </presentation>
+      <methods/>
+    </class>
+    <class id="lnkRiskToService" _delta="define">
+      <parent>cmdbAbstractObject</parent>
+      <properties>
+        <is_link>1</is_link>
+        <category>bizmodel</category>
+        <abstract>false</abstract>
+        <key_type>autoincrement</key_type>
+        <db_table>lnkrisktoservice</db_table>
+        <db_key_field>id</db_key_field>
+        <db_final_class_field/>
+        <naming>
+          <attributes>
+            <attribute id="service_id"/>
+            <attribute id="risk_id"/>
+          </attributes>
+        </naming>
+        <display_template/>
+        <icon/>
+        <reconciliation>
+          <attributes>
+            <attribute id="service_id"/>
+            <attribute id="risk_id"/>
+          </attributes>
+        </reconciliation>
+      </properties>
+      <fields>
+        <field id="risk_id" xsi:type="AttributeExternalKey">
+          <sql>risk_id</sql>
+          <target_class>Risk</target_class>
+          <is_null_allowed>true</is_null_allowed>
+          <on_target_delete>DEL_AUTO</on_target_delete>
+        </field>
+        <field id="risk_name" xsi:type="AttributeExternalField">
+          <extkey_attcode>risk_id</extkey_attcode>
+          <target_attcode>name</target_attcode>
+        </field>
+        <field id="service_id" xsi:type="AttributeExternalKey">
+          <sql>service_id</sql>
+          <target_class>Service</target_class>
+          <is_null_allowed>true</is_null_allowed>
+          <on_target_delete>DEL_AUTO</on_target_delete>
+        </field>
+        <field id="service_name" xsi:type="AttributeExternalField">
+          <extkey_attcode>service_id</extkey_attcode>
+          <target_attcode>name</target_attcode>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="risk_id">
+              <rank>10</rank>
+            </item>
+            <item id="service_id">
+              <rank>20</rank>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="risk_id">
+              <rank>10</rank>
+            </item>
+            <item id="service_id">
+              <rank>20</rank>
+            </item>
+          </items>
+        </search>
+        <list>
+          <items>
+            <item id="risk_id">
+              <rank>10</rank>
+            </item>
+            <item id="service_id">
+              <rank>20</rank>
+            </item>
+          </items>
+        </list>
+      </presentation>
+      <methods/>
+    </class>
+    <class id="RoutineChange" >
+      <fields>
+        <field id="risk_list" xsi:type="AttributeLinkedSetIndirect" _delta="define">
+          <linked_class>lnkRiskToChange</linked_class>
+          <ext_key_to_me>change_id</ext_key_to_me>
+          <count_min>0</count_min>
+          <count_max>0</count_max>
+          <ext_key_to_remote>risk_id</ext_key_to_remote>
+          <duplicates/>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="risk_list" _delta="define">
+              <rank>15</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
+    </class>
+    <class id="NormalChange" >
+      <fields>
+        <field id="risk_list" xsi:type="AttributeLinkedSetIndirect" _delta="define">
+          <linked_class>lnkRiskToChange</linked_class>
+          <ext_key_to_me>change_id</ext_key_to_me>
+          <count_min>0</count_min>
+          <count_max>0</count_max>
+          <ext_key_to_remote>risk_id</ext_key_to_remote>
+          <duplicates/>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="risk_list" _delta="define">
+              <rank>15</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
+    </class>
+    <class id="EmergencyChange" >
+      <fields>
+        <field id="risk_list" xsi:type="AttributeLinkedSetIndirect" _delta="define">
+          <linked_class>lnkRiskToChange</linked_class>
+          <ext_key_to_me>change_id</ext_key_to_me>
+          <count_min>0</count_min>
+          <count_max>0</count_max>
+          <ext_key_to_remote>risk_id</ext_key_to_remote>
+          <duplicates/>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="risk_list" _delta="define">
+              <rank>15</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
+    </class>
+
+    <class id="Service" >
+      <fields>
+        <field id="risk_list" xsi:type="AttributeLinkedSetIndirect" _delta="define">
+          <linked_class>lnkRiskToService</linked_class>
+          <ext_key_to_me>service_id</ext_key_to_me>
+          <count_min>0</count_min>
+          <count_max>0</count_max>
+          <ext_key_to_remote>risk_id</ext_key_to_remote>
+          <duplicates/>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="risk_list" _delta="define">
+              <rank>120</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
+    </class>
+  </classes>
+  <menus>
+    <menu id="RiskMgmt" xsi:type="MenuGroup" _delta="define">
+      <rank>31</rank>
+      <enable_class>Risk</enable_class>
+      <enable_action>UR_ACTION_READ | UR_ACTION_MODIFY</enable_action>
+    </menu>
+    <menu id="NewRisk" xsi:type="NewObjectMenuNode" _delta="define">
+      <rank>10</rank>
+      <parent>RiskMgmt</parent>
+      <class>Risk</class>
+    </menu>
+    <menu id="SearchRisk" xsi:type="SearchMenuNode" _delta="define">
+      <rank>20</rank>
+      <parent>RiskMgmt</parent>
+      <class>Risk</class>
+    </menu>
+  </menus>
+  <user_rights>
+    <groups>
+      <group id="Risk" _delta="define">
+        <classes>
+          <class id="Risk"/>
+        </classes>
+      </group>
+    </groups>
+    <profiles>
+      <profile id="21" _delta="define">
+        <name>Risk Manager</name>
+        <description>Person responsible for managing risks</description>
+        <groups>
+          <group id="Risk">
+            <actions>
+              <action id="action:write">allow</action>
+              <action id="action:bulk write">allow</action>
+              <action id="action:delete">allow</action>
+              <action id="action:bulk delete">allow</action>
+              <action id="stimulus:ev_close">allow</action>
+              <action id="stimulus:ev_reopen">allow</action>
+              <action id="action:bulk read">allow</action>
+            </actions>
+          </group>
+          <group id="*">
+            <actions>
+              <action id="action:read">allow</action>
+            </actions>
+          </group>
+        </groups>
+      </profile>  
+    </profiles>
+  </user_rights>
+</itop_design>

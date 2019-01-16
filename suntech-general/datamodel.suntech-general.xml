@@ -1,0 +1,2658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
+  <constants>
+  </constants>
+  <classes>
+  <class id="NormalChange">
+    <properties>
+      <naming _delta="redefine">
+        <attributes>
+          <attribute id="title"/>
+          <attribute id="ref"/>
+        </attributes>
+      </naming>
+      <reconciliation _delta="redefine">
+        <attributes>
+          <attribute id="title"/>
+          <attribute id="ref"/>
+        </attributes>
+      </reconciliation>
+    </properties>
+  </class>
+  <class id="RoutineChange">
+    <properties>
+      <naming _delta="redefine">
+        <attributes>
+          <attribute id="title"/>
+          <attribute id="ref"/>
+        </attributes>
+      </naming>
+      <reconciliation _delta="redefine">
+        <attributes>
+          <attribute id="title"/>
+          <attribute id="ref"/>
+        </attributes>
+      </reconciliation>
+    </properties>
+  </class>
+  <class id="EmergencyChange">
+    <properties>
+      <naming _delta="redefine">
+        <attributes>
+          <attribute id="title"/>
+          <attribute id="ref"/>
+        </attributes>
+      </naming>
+      <reconciliation _delta="redefine">
+        <attributes>
+          <attribute id="title"/>
+          <attribute id="ref"/>
+        </attributes>
+      </reconciliation>
+    </properties>
+  </class>
+  <class id="Problem">
+    <properties>
+      <naming _delta="redefine">
+        <attributes>
+          <attribute id="title"/>
+          <attribute id="ref"/>
+        </attributes>
+      </naming>
+      <reconciliation _delta="redefine">
+        <attributes>
+          <attribute id="title"/>
+          <attribute id="ref"/>
+        </attributes>
+      </reconciliation>
+    </properties>
+  </class>
+  
+  
+  <class id="Ticket">
+    <properties>
+      <naming _delta="redefine">
+        <attributes>
+          <attribute id="title"/>
+          <attribute id="ref"/>
+        </attributes>
+      </naming>
+      <reconciliation _delta="redefine">
+        <attributes>
+          <attribute id="title"/>
+          <attribute id="ref"/>
+        </attributes>
+      </reconciliation>
+    </properties>
+      <fields>
+        <field id="ip" xsi:type="AttributeString" _delta="define">
+          <sql>ip</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+    <field id="start_date_temp" xsi:type="AttributeString" _delta="define">
+          <sql>start_date_temp</sql>
+          <default_value/>
+      <is_null_allowed>true</is_null_allowed>
+      <validation_pattern>[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]</validation_pattern>
+        </field>
+        <field id="end_date_temp"  xsi:type="AttributeString" _delta="define">
+          <sql>end_date_temp</sql>
+      <is_null_allowed>true</is_null_allowed>
+      <validation_pattern>[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]</validation_pattern>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+      </fields>
+          <methods>
+        <method id="DBInsertNoReload"  _delta="redefine">
+          <static>false</static>
+          <access>public</access>
+          <type>Overload-DBObject</type>
+          <code><![CDATA[
+            public function DBInsertNoReload()
+            {
+                $oMutex = new iTopMutex('ticket_insert');
+                $oMutex->Lock();
+                $iNextId = MetaModel::GetNextKey(get_class($this));
+                $sRef = $this->MakeTicketRef($iNextId);
+                $this->Set('ref', $sRef);
+                $iKey = parent::DBInsertNoReload();
+                $oMutex->Unlock();
+                return $iKey;
+            }
+          ]]></code>
+        </method>
+      </methods>
+    <presentation>
+      <details _delta="redefine">
+          <items>
+            <item id="ref">
+              <rank>10</rank>
+            </item>
+            <item id="org_id">
+              <rank>20</rank>
+            </item>
+            <item id="caller_id">
+              <rank>30</rank>
+            </item>
+            <item id="ip">
+              <rank>35</rank>
+            </item>
+            <item id="team_id">
+              <rank>40</rank>
+            </item>
+            <item id="agent_id">
+              <rank>50</rank>
+            </item>
+            <item id="title">
+              <rank>60</rank>
+            </item>
+            <item id="description">
+              <rank>70</rank>
+            </item>
+            <item id="operational_status">
+              <rank>75</rank>
+            </item>
+            <item id="start_date">
+              <rank>80</rank>
+            </item>
+            <item id="end_date">
+              <rank>90</rank>
+            </item>
+            <item id="last_update">
+              <rank>100</rank>
+            </item>
+            <item id="close_date">
+              <rank>110</rank>
+            </item>
+            <item id="private_log">
+              <rank>120</rank>
+            </item>
+            <item id="contacts_list">
+              <rank>130</rank>
+            </item>
+            <item id="functionalcis_list">
+              <rank>140</rank>
+            </item>
+            <item id="workorders_list">
+              <rank>150</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
+     </class>
+    
+  <class id="UserRequest">
+    <properties>
+      <naming _delta="redefine">
+        <attributes>
+          <attribute id="title"/>
+          <attribute id="ref"/>
+        </attributes>
+      </naming>
+      <reconciliation _delta="redefine">
+        <attributes>
+          <attribute id="title"/>
+          <attribute id="ref"/>
+        </attributes>
+      </reconciliation>
+    </properties>
+    <fields>
+      <field id="resolution_code" xsi:type="AttributeEnum" _delta="redefine">
+        <values>
+          <value id="assistance">assistance</value>
+          <value id="other">other</value>
+          <value id="software patch">software patch</value>
+          <value id="installation">installation</value>
+          <value id="training">training</value>
+          <value id="hardware repair">hardware repair</value>
+          <value id="system update">system update</value>
+          <value id="bug fixed">bug fixed</value>
+        </values>
+        <sql>resolution_code</sql>
+        <default_value>assistance</default_value>
+        <is_null_allowed>true</is_null_allowed>
+      </field>
+      <field id="request_type" xsi:type="AttributeEnum" _delta="redefine">
+        <values>
+        <value id="incident">incident</value>
+        <value id="service_request">service_request</value>
+        <value id="event">event</value>
+        <value id="weakness">weakness</value>
+        </values>
+        <sql>request_type</sql>
+        <default_value></default_value>
+        <is_null_allowed>true</is_null_allowed>
+        <display_style>list</display_style>
+      </field>
+      <field id="impact" xsi:type="AttributeEnum">
+          <values>
+            <value id="1">1</value>
+            <value id="2">2</value>
+            <value id="3">3</value>
+          </values>
+          <sql>impact</sql>
+          <default_value _delta="redefine" >2</default_value>
+          <is_null_allowed>false</is_null_allowed>
+          <display_style>list</display_style>
+        </field>
+    </fields>
+    <methods>
+      <method id="ComputeImpactedItems" _delta="redefine">
+          <static>false</static>
+          <access>public</access>
+          <type>LifecycleAction</type>
+          <code><![CDATA[ public function ComputeImpactedItems()
+            {
+              // This method is kept for backward compatibility
+              // in case a delta redefines it, but you may call
+              // UpdateImpactedItems directly
+              $this->UpdateImpactedItems();
+              
+              // This line is added by this exstension for saving caller's ip
+              $this->Set('ip', $_SERVER['REMOTE_ADDR']);
+            }]]></code>
+      </method>
+    </methods>
+    <presentation>
+        <details>
+          <items>
+            <item id="functionalcis_list">
+              <rank>10</rank>
+            </item>
+            <item id="contacts_list">
+              <rank>20</rank>
+            </item>
+            <item id="related_request_list">
+              <rank>30</rank>
+            </item>
+            <item id="workorders_list">
+              <rank>40</rank>
+            </item>
+            <item id="col:col1">
+              <rank>50</rank>
+              <items>
+                <item id="fieldset:Ticket:baseinfo">
+                  <rank>10</rank>
+                  <items>
+                    <item id="org_id">
+                      <rank>10</rank>
+                    </item>
+                    <item id="caller_id">
+                      <rank>20</rank>
+                    </item>
+                    <item id="ip">
+                      <rank>25</rank>
+                    </item>
+                    <item id="status">
+                      <rank>30</rank>
+                    </item>
+                    <item id="origin">
+                      <rank>40</rank>
+                    </item>
+                    <item id="title">
+                      <rank>50</rank>
+                    </item>
+                    <item id="description">
+                      <rank>60</rank>
+                    </item>
+                  </items>
+                </item>
+                <item id="fieldset:Ticket:moreinfo">
+                  <rank>20</rank>
+                  <items>
+                    <item id="service_id">
+                      <rank>10</rank>
+                    </item>
+                    <item id="servicesubcategory_id">
+                      <rank>20</rank>
+                    </item>
+                    <item id="escalation_flag">
+                      <rank>30</rank>
+                    </item>
+                    <item id="escalation_reason">
+                      <rank>40</rank>
+                    </item>
+                    <item id="pending_reason">
+                      <rank>50</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+            <item id="col:col2">
+              <rank>60</rank>
+              <items>
+                <item id="fieldset:Ticket:Type">
+                  <rank>10</rank>
+                  <items>
+                    <item id="request_type">
+                      <rank>10</rank>
+                    </item>
+                    <item id="impact">
+                      <rank>20</rank>
+                    </item>
+                    <item id="urgency">
+                      <rank>30</rank>
+                    </item>
+                    <item id="priority">
+                      <rank>40</rank>
+                    </item>
+                  </items>
+                </item>
+                <item id="fieldset:Ticket:contact">
+                  <rank>20</rank>
+                  <items>
+                    <item id="team_id">
+                      <rank>10</rank>
+                    </item>
+                    <item id="agent_id">
+                      <rank>20</rank>
+                    </item>
+                    <item id="approver_id">
+                      <rank>30</rank>
+                    </item>
+                  </items>
+                </item>
+                <item id="fieldset:Ticket:date">
+                  <rank>30</rank>
+                  <items>
+                    <item id="start_date">
+                      <rank>10</rank>
+                    </item>
+                    <item id="last_update">
+                      <rank>20</rank>
+                    </item>
+                    <item id="assignment_date">
+                      <rank>30</rank>
+                    </item>
+                    <item id="tto_escalation_deadline">
+                      <rank>40</rank>
+                    </item>
+                    <item id="ttr_escalation_deadline">
+                      <rank>50</rank>
+                    </item>
+                    <item id="last_pending_date">
+                      <rank>60</rank>
+                    </item>
+                    <item id="resolution_date">
+                      <rank>70</rank>
+                    </item>
+                    <item id="close_date">
+                      <rank>80</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+            <item id="col:col3">
+              <rank>70</rank>
+              <items>
+                <item id="fieldset:Ticket:relation">
+                  <rank>10</rank>
+                  <items>
+                    <item id="parent_request_id">
+                      <rank>10</rank>
+                    </item>
+                    <item id="parent_problem_id">
+                      <rank>30</rank>
+                    </item>
+                    <item id="parent_change_id">
+                      <rank>40</rank>
+                    </item>
+                  </items>
+                </item>
+                <item id="fieldset:Ticket:resolution">
+                  <rank>20</rank>
+                  <items>
+                    <item id="resolution_code">
+                      <rank>10</rank>
+                    </item>
+                    <item id="solution">
+                      <rank>20</rank>
+                    </item>
+                    <item id="time_spent">
+                      <rank>30</rank>
+                    </item>
+                    <item id="user_satisfaction">
+                      <rank>40</rank>
+                    </item>
+                    <item id="user_comment">
+                      <rank>50</rank>
+                    </item>
+                  </items>
+                </item>
+                <item id="fieldset:Ticket:SLA">
+                  <rank>30</rank>
+                  <items>
+                    <item id="sla_tto_passed">
+                      <rank>10</rank>
+                    </item>
+                    <item id="sla_tto_over">
+                      <rank>20</rank>
+                    </item>
+                    <item id="sla_ttr_passed">
+                      <rank>30</rank>
+                    </item>
+                    <item id="sla_ttr_over">
+                      <rank>40</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="ref">
+              <rank>10</rank>
+            </item>
+            <item id="org_id">
+              <rank>20</rank>
+            </item>
+            <item id="title">
+              <rank>30</rank>
+            </item>
+            <item id="description">
+              <rank>40</rank>
+            </item>
+            <item id="start_date">
+              <rank>50</rank>
+            </item>
+            <item id="resolution_date">
+              <rank>70</rank>
+            </item>
+            <item id="close_date">
+              <rank>80</rank>
+            </item>
+            <item id="status">
+              <rank>90</rank>
+            </item>
+            <item id="operational_status">
+              <rank>95</rank>
+            </item>
+            <item id="caller_id">
+              <rank>100</rank>
+            </item>
+            <item id="origin">
+              <rank>110</rank>
+            </item>
+            <item id="request_type">
+              <rank>120</rank>
+            </item>
+            <item id="impact">
+              <rank>130</rank>
+            </item>
+            <item id="urgency">
+              <rank>140</rank>
+            </item>
+            <item id="priority">
+              <rank>150</rank>
+            </item>
+            <item id="service_id">
+              <rank>160</rank>
+            </item>
+            <item id="servicesubcategory_id">
+              <rank>170</rank>
+            </item>
+            <item id="team_id">
+              <rank>180</rank>
+            </item>
+            <item id="agent_id">
+              <rank>190</rank>
+            </item>
+            <item id="escalation_flag">
+              <rank>200</rank>
+            </item>
+            <item id="resolution_code">
+              <rank>210</rank>
+            </item>
+            <item id="user_satisfaction">
+              <rank>220</rank>
+            </item>
+            <item id="sla_tto_passed">
+              <rank>230</rank>
+            </item>
+            <item id="sla_ttr_passed">
+              <rank>240</rank>
+            </item>
+          </items>
+        </search>
+        <list>
+          <items>
+            <item id="title">
+              <rank>10</rank>
+            </item>
+            <item id="org_id">
+              <rank>20</rank>
+            </item>
+            <item id="caller_id">
+              <rank>30</rank>
+            </item>
+            <item id="start_date">
+              <rank>40</rank>
+            </item>
+            <item id="status">
+              <rank>50</rank>
+            </item>
+            <item id="agent_id">
+              <rank>60</rank>
+            </item>
+          </items>
+        </list>
+      </presentation>
+     </class>
+    
+   
+
+   
+  <class id="RoutineChange">
+      <lifecycle>
+        <attribute>status</attribute>
+        <states>
+          <state id="plannedscheduled">
+            <inherit_flags_from>assigned</inherit_flags_from>
+            <flags _delta="redefine">
+              <attribute id="org_id">
+                <read_only/>
+              </attribute>
+              <attribute id="agent_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="team_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="start_date">
+              </attribute>
+              <attribute id="end_date">
+              </attribute>
+        <attribute id="start_date_temp">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+              <attribute id="end_date_temp">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+              <attribute id="impact">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+              <attribute id="supervisor_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="manager_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="outage">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+              <attribute id="fallback">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+            </flags>
+          </state>
+    </states>
+      </lifecycle>
+      <methods/> 
+    <presentation>
+        <details>
+      <items>
+      <item id="col:col3" _delta="redefine">
+              <rank>100</rank>
+              <items>
+                <item id="fieldset:Ticket:date">
+                  <rank>10</rank>
+                  <items>
+                    <item id="creation_date">
+                      <rank>10</rank>
+                    </item>
+                    <item id="start_date_temp">
+                      <rank>20</rank>
+                    </item>
+                    <item id="end_date_temp">
+                      <rank>30</rank>
+                    </item>
+                    <item id="last_update">
+                      <rank>40</rank>
+                    </item>
+                    <item id="close_date">
+                      <rank>50</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+      </items>
+    </details>
+   </presentation>
+   </class>
+   
+  <class id="NormalChange">
+    <fields>
+      <field id="acceptance_date_temp" xsi:type="AttributeString" _delta="define">
+        <sql>acceptance_date_temp</sql>
+        <default_value/>
+        <is_null_allowed>true</is_null_allowed>
+        <validation_pattern>[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]</validation_pattern>
+      </field>
+    </fields>
+      <lifecycle>
+        <attribute>status</attribute>
+        <states>
+          <state id="plannedscheduled">
+            <inherit_flags_from>assigned</inherit_flags_from>
+            <flags _delta="redefine">
+              <attribute id="org_id">
+                <read_only/>
+              </attribute>
+              <attribute id="agent_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="team_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="start_date">
+              </attribute>
+              <attribute id="end_date">
+              </attribute>
+        <attribute id="start_date_temp">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+              <attribute id="end_date_temp">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+              <attribute id="impact">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+              <attribute id="supervisor_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="manager_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="outage">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+              <attribute id="fallback">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+            </flags>
+          </state>
+    
+    <state id="approved">
+            <inherit_flags_from>plannedscheduled</inherit_flags_from>
+            <flags _delta="redefine">
+              <attribute id="impact">
+                <read_only/>
+              </attribute>
+              <attribute id="supervisor_group_id">
+                <read_only/>
+              </attribute>
+              <attribute id="supervisor_id">
+                <read_only/>
+              </attribute>
+              <attribute id="manager_group_id">
+                <read_only/>
+              </attribute>
+              <attribute id="manager_id">
+                <read_only/>
+              </attribute>
+              <attribute id="outage">
+                <read_only/>
+              </attribute>
+              <attribute id="approval_date">
+                <hidden/>
+              </attribute>
+        <attribute id="approval_date_temp">
+                <mandatory/>
+              </attribute>              
+              <attribute id="approval_comment">
+                <mandatory/>
+              </attribute>
+            </flags>
+            <transitions>
+              <transition id="ev_implement">
+                <target>implemented</target>
+                <actions/>
+              </transition>
+            </transitions>
+          </state>
+      
+      <state id="validated">
+            <flags>
+              <attribute id="acceptance_date" _delta="redefine">
+                <hidden/>
+              </attribute>
+        <attribute id="acceptance_date_temp" delta="define">
+                <mandatory/>
+              </attribute>
+            </flags>
+          </state>
+          
+    </states>
+      </lifecycle>
+      <methods/> 
+    <presentation>
+        <details>
+      <items>
+      <item id="col:col3" _delta="redefine">
+              <rank>100</rank>
+              <items>
+                <item id="fieldset:Ticket:date">
+                  <rank>10</rank>
+                  <items>
+                    <item id="creation_date">
+                      <rank>10</rank>
+                    </item>
+                    <item id="start_date_temp">
+                      <rank>20</rank>
+                    </item>
+                    <item id="end_date_temp">
+                      <rank>30</rank>
+                    </item>
+                    <item id="last_update">
+                      <rank>40</rank>
+                    </item>
+                    <item id="approval_date_temp">
+                      <rank>50</rank>
+                    </item>
+                    <item id="acceptance_date_temp">
+                      <rank>60</rank>
+                    </item>
+                    <item id="close_date">
+                      <rank>70</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+      </items>
+    </details>
+   </presentation>
+   </class>
+   
+  <class id="EmergencyChange">
+      <lifecycle>
+        <attribute>status</attribute>
+        <states>
+          <state id="plannedscheduled">
+            <inherit_flags_from>assigned</inherit_flags_from>
+            <flags _delta="redefine">
+              <attribute id="org_id">
+                <read_only/>
+              </attribute>
+              <attribute id="agent_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="team_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="start_date">
+              </attribute>
+              <attribute id="end_date">
+              </attribute>
+        <attribute id="start_date_temp">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+              <attribute id="end_date_temp">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+              <attribute id="impact">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+              <attribute id="supervisor_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="manager_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="outage">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+              <attribute id="fallback">
+                <mandatory/>
+                <must_prompt/>
+              </attribute>
+            </flags>
+          </state>
+    
+    <state id="approved">
+            <inherit_flags_from>plannedscheduled</inherit_flags_from>
+            <flags _delta="redefine">
+              <attribute id="impact">
+                <read_only/>
+              </attribute>
+              <attribute id="supervisor_group_id">
+                <read_only/>
+              </attribute>
+              <attribute id="supervisor_id">
+                <read_only/>
+              </attribute>
+              <attribute id="manager_group_id">
+                <read_only/>
+              </attribute>
+              <attribute id="manager_id">
+                <read_only/>
+              </attribute>
+              <attribute id="outage">
+                <read_only/>
+              </attribute>
+              <attribute id="approval_date">
+                <hidden/>
+              </attribute>
+        <attribute id="approval_date_temp">
+                <mandatory/>
+              </attribute>
+              <attribute id="approval_comment">
+                <mandatory/>
+              </attribute>
+            </flags>
+            <transitions>
+              <transition id="ev_implement">
+                <target>implemented</target>
+                <actions/>
+              </transition>
+            </transitions>
+          </state>
+    </states>
+      </lifecycle>
+      <methods/> 
+    <presentation>
+        <details>
+      <items>
+      <item id="col:col3" _delta="redefine">
+              <rank>100</rank>
+              <items>
+                <item id="fieldset:Ticket:date">
+                  <rank>10</rank>
+                  <items>
+                    <item id="creation_date">
+                      <rank>10</rank>
+                    </item>
+                    <item id="start_date_temp">
+                      <rank>20</rank>
+                    </item>
+                    <item id="end_date_temp">
+                      <rank>30</rank>
+                    </item>
+                    <item id="last_update">
+                      <rank>40</rank>
+                    </item>
+                    <item id="approval_date_temp">
+                      <rank>50</rank>
+                    </item>
+                    <item id="close_date">
+                      <rank>60</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+      </items>
+    </details>
+   </presentation>
+   </class>
+  
+  <class id="ApprovedChange">
+    <fields>
+        <field id="approval_date_temp" xsi:type="AttributeString" _delta="define">
+          <sql>approval_date_temp</sql>
+          <default_value/>
+      <is_null_allowed>true</is_null_allowed>
+      <validation_pattern>[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]</validation_pattern>
+        </field>
+      </fields>
+      <lifecycle>
+        <attribute>status</attribute>
+        <states>
+        <state id="approved" _delta="redefine">
+            <flags>
+              <attribute id="ref">
+                <read_only/>
+              </attribute>
+              <attribute id="org_id">
+                <read_only/>
+              </attribute>
+              <attribute id="agent_id">
+                <mandatory/>
+              </attribute>
+              <attribute id="title">
+                <mandatory/>
+              </attribute>
+              <attribute id="description">
+                <read_only/>
+              </attribute>
+              <attribute id="start_date">
+                <mandatory/>
+              </attribute>
+              <attribute id="end_date">
+                <mandatory/>
+              </attribute>
+              <attribute id="last_update">
+                <read_only/>
+              </attribute>
+              <attribute id="close_date">
+                <hidden/>
+              </attribute>
+              <attribute id="reason">
+                <read_only/>
+              </attribute>
+              <attribute id="requestor_id">
+                <read_only/>
+              </attribute>
+              <attribute id="creation_date">
+                <read_only/>
+              </attribute>
+              <attribute id="impact">
+                <read_only/>
+              </attribute>
+              <attribute id="supervisor_group_id">
+                <read_only/>
+              </attribute>
+              <attribute id="supervisor_id">
+                <read_only/>
+              </attribute>
+              <attribute id="manager_group_id">
+                <read_only/>
+              </attribute>
+              <attribute id="manager_id">
+                <read_only/>
+              </attribute>
+              <attribute id="outage">
+                <read_only/>
+              </attribute>
+              <attribute id="fallback">
+                <mandatory/>
+              </attribute>
+              <attribute id="approval_date">
+        <hidden/>
+              </attribute>
+        <attribute id="approval_date_temp">
+                <mandatory/>
+              </attribute>              
+              <attribute id="approval_comment">
+                <mandatory/>
+              </attribute>
+            </flags>
+            <transitions/>
+          </state>            
+    </states>
+      </lifecycle>
+      <methods/> 
+    <presentation>
+        <details>
+      <items>
+      <item id="col:col3" _delta="redefine">
+              <rank>100</rank>
+              <items>
+                <item id="fieldset:Ticket:date">
+                  <rank>10</rank>
+                  <items>
+                    <item id="creation_date">
+                      <rank>10</rank>
+                    </item>
+                    <item id="start_date_temp">
+                      <rank>20</rank>
+                    </item>
+                    <item id="end_date_temp">
+                      <rank>30</rank>
+                    </item>
+                    <item id="last_update">
+                      <rank>40</rank>
+                    </item>
+                    <item id="approval_date_temp">
+                      <rank>50</rank>
+                    </item>
+                    <item id="close_date">
+                      <rank>60</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+      </items>
+    </details>
+   </presentation>
+   </class>
+   
+   
+   
+   
+   
+
+
+
+
+   
+   
+   
+   <class id="PhysicalDevice">
+      <fields>
+        <field id="it_asset_number" xsi:type="AttributeString" _delta="define">
+          <sql>it_asset_number</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="effective_life" xsi:type="AttributeString" _delta="define">
+          <sql>effective_life</sql>
+          <validation_pattern>[0-9]</validation_pattern>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+      </fields>
+      <methods/>
+      <presentation>
+        <details>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+            <item id="effective_life" _delta="define">
+              <rank>115</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    
+   <class id="ConnectableCI">      
+      <presentation>
+        <details>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+      <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+            <item id="effective_life" _delta="define">
+              <rank>115</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="DatacenterDevice">
+      <presentation>
+        <details>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>125</rank>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="NetworkDevice">
+      <presentation>
+        <details>
+          <items>
+            <item id="col:col1">
+              <items>
+                <item id="fieldset:Server:moreinfo">
+                  <items>                    
+                    <item id="it_asset_number" _delta="define">
+                      <rank>85</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="Server">
+      <presentation>
+        <details>
+          <items>
+            <item id="col:col1">
+              <items>
+                <item id="fieldset:Server:moreinfo">
+                  <items>
+                    <item id="it_asset_number" _delta="define">
+                      <rank>105</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>            
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    
+   
+   
+   <class id="Rack">
+      <presentation>
+        <details>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>105</rank>
+            </item>           
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>105</rank>
+            </item>
+            <item id="effective_life" _delta="define">
+              <rank>106</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="Enclosure">
+      <presentation>
+        <details>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>115</rank>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+      </item>
+      <item id="effective_life" _delta="define">
+        <rank>96</rank>
+      </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="PowerConnection">
+      <presentation>
+        <details>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+      </item>
+      <item id="effective_life" _delta="define">
+        <rank>96</rank>
+      </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="PowerSource">
+      <presentation>
+        <details>
+      <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+            <item id="effective_life" _delta="define">
+              <rank>96</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="PDU">
+      <presentation>
+        <details>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>115</rank>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>105</rank>
+            </item>
+            <item id="effective_life" _delta="define">
+              <rank>106</rank>
+            </item>
+       </items>
+        </search>
+      </presentation>
+    </class>
+  
+  
+  <class id="TelephonyCI">
+      <presentation>
+        <details>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>105</rank>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>105</rank>
+            </item>
+            <item id="effective_life" _delta="define">
+              <rank>106</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="Phone">
+      <presentation>
+        <details>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>105</rank>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>105</rank>
+            </item>
+            <item id="effective_life" _delta="define">
+              <rank>106</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="MobilePhone">
+      <presentation>
+        <details>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>125</rank>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>125</rank>
+            </item>
+            <item id="effective_life" _delta="define">
+              <rank>126</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="IPPhone">
+      <presentation>
+        <details>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>105</rank>
+            </item>
+            <item id="effective_life" _delta="define" >
+              <rank>106</rank>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>105</rank>
+            </item>
+            <item id="effective_life" _delta="define">
+              <rank>106</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="Tablet">
+      <presentation>
+        <details>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+            <item id="effective_life" _delta="define">
+              <rank>96</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="PC">
+      <presentation>
+        <details>
+          <items>
+            <item id="col:col1">
+              <items>
+                <item id="fieldset:Server:moreinfo">
+                  <items>
+                    <item id="it_asset_number" _delta="define">
+                      <rank>95</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>105</rank>
+            </item>
+            <item id="effective_life" _delta="define">
+              <rank>106</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="Printer">
+      <presentation>
+        <details>
+          <items>
+            <item id="col:col1">
+              <items>
+                <item id="fieldset:Server:moreinfo">
+                  <items>
+                    <item id="it_asset_number" _delta="define">
+                      <rank>45</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+            <item id="effective_life" _delta="define">
+              <rank>96</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="Peripheral">
+      <fields>
+       <field id="device_type" xsi:type="AttributeEnum" _delta="define">
+          <values>
+            <value id="mouse">mouse</value>
+            <value id="keyboard">keyboard</value>
+            <value id="light_pen">light_pen</value>
+            <value id="light_pen">scanner</value>
+            <value id="monitor">monitor</value>
+            <value id="headphone">headphone</value>
+            <value id="speaker">speaker</value>
+            <value id="microphone">microphone</value>
+            <value id="lcd">lcd</value>
+            <value id="external_dvd_rw">external_dvd_rw</value>
+
+          </values>
+          <sql>type</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+          <display_style>list</display_style>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+        <item id="device_type" _delta="define">
+              <rank>55</rank>
+            </item>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+      <item id="device_type" _delta="define">
+              <rank>96</rank>
+            </item>
+
+          </items>
+        </search>
+      </presentation>
+    </class>
+  
+  
+  <class id="StorageSystem">
+      <presentation>
+        <details>
+          <items>
+            <item id="col:col1">
+              <items>
+                <item id="fieldset:Server:moreinfo">
+                  <items>
+                    <item id="it_asset_number" _delta="define">
+                      <rank>55</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+            <item id="effective_life" _delta="define" >
+              <rank>25</rank>
+            </item>
+                
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="SANSwitch">
+      <presentation>
+        <details>
+          <items>
+            <item id="col:col1">
+              <items>                
+                <item id="fieldset:Server:moreinfo">
+                  <items>
+                    <item id="it_asset_number" _delta="define">
+                      <rank>55</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="TapeLibrary">
+      <presentation>
+        <details>
+          <items>
+            <item id="col:col1">
+              <items>
+                <item id="fieldset:Server:moreinfo">
+                  <items>
+                    <item id="it_asset_number" _delta="define">
+                      <rank>55</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>  
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>          
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    <class id="NAS">
+      <presentation>
+        <details>
+          <items>
+            <item id="col:col1">
+              <items>                
+                <item id="fieldset:Server:moreinfo">
+                  <items>
+                    <item id="it_asset_number" _delta="define">
+                      <rank>55</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item> 
+            <item id="col:col2">
+              <items>
+              <item id="fieldset:Server:Date">
+                <items>
+                  <item id="effective_life" _delta="define" >
+                    <rank>25</rank>
+                  </item>
+                </items>
+              </item>
+              </items>
+            </item>           
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="it_asset_number" _delta="define">
+              <rank>95</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+    </class>
+    
+    <class id="Contract">
+      <parent>cmdbAbstractObject</parent>
+      <fields>
+        <field id="cost_currency" xsi:type="AttributeEnum">
+          <values>
+            <value id="dollars">dollars</value>
+            <value id="euros">euros</value>
+            <value id="rials" _delta="define">rials</value>
+          </values>
+        </field>
+      </fields>
+    </class>
+	
+	
+	
+	<class id="Person">
+      <fields>
+        <field id="national_code" xsi:type="AttributeString" _delta="define">
+          <sql>national_code</sql>
+          <validation_pattern>[0-9]{10}</validation_pattern>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="col:col1">
+              <rank>40</rank>
+              <items>
+                <item id="fieldset:Person:info">
+                  <rank>10</rank>
+                  <items>
+                    <item id="national_code" _delta="define">
+                      <rank>25</rank>
+                    </item>
+                  </items>
+                </item>
+              </items>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="national_code" _delta="define">
+              <rank>25</rank>
+            </item>            
+          </items>
+        </search>
+        <list>
+          <items>
+            <item id="national_code" _delta="define">
+              <rank>25</rank>
+            </item>
+          </items>
+        </list>
+      </presentation>
+    </class>
+
+
+
+
+
+
+
+
+
+    <class id="UserLogin" _delta="define">
+      <parent>cmdbAbstractObject</parent>
+      <properties>
+        <comment><![CDATA[/**
+ * Persistent classes for a CMDB
+ *
+ * @copyright   Copyright (C) 2010-2017 Combodo SARL
+ * @license     http://opensource.org/licenses/AGPL-3.0
+ */]]></comment>
+        <category>bizmodel,searchable,structure</category>
+        <abstract>false</abstract>
+        <key_type>autoincrement</key_type>
+        <db_table>user_login</db_table>
+        <db_key_field>id</db_key_field>
+        <db_final_class_field>finalclass</db_final_class_field>
+        <reconciliation>
+          <attributes>
+            <attribute id="user_name" />
+          </attributes>
+        </reconciliation>
+      </properties>
+      <fields>
+        <field id="user_id" xsi:type="AttributeString">
+          <sql>user_id</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="user_name" xsi:type="AttributeString">
+          <sql>user_name</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="ip" xsi:type="AttributeString">
+          <sql>ip</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="login_time" xsi:type="AttributeDateTime">
+          <always_load_in_tables>true</always_load_in_tables>
+          <sql>login_time</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+      </fields>
+      <methods>
+        <method id="OnInsert">
+          <static>false</static>
+          <access>protected</access>
+          <type>Overload-DBObject</type>
+          <code><![CDATA[
+    protected function OnInsert()
+  {
+        parent::OnInsert();
+    $this->Set('ip', $_SERVER['REMOTE_ADDR']);
+    $this->Set('login_time', time());
+  }]]></code>
+        </method>
+      </methods>
+      <presentation>
+        <details>
+          <items>
+            <item id="login_time">
+              <rank>10</rank>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="login_time">
+              <rank>10</rank>
+            </item>
+          </items>
+        </search>
+        <list>
+          <items>
+            <item id="login_time">
+              <rank>10</rank>
+            </item>
+          </items>
+        </list>
+      </presentation>
+    </class>
+
+
+
+    <class id="WorkOrder" >
+      <fields>
+        <field id="start_date" xsi:type="AttributeDate" _delta="redefine">
+          <sql>start_date</sql>
+          <default_value/>
+          <is_null_allowed>false</is_null_allowed>
+        </field>
+        <field id="end_date" xsi:type="AttributeDate" _delta="redefine">
+          <sql>end_date</sql>
+          <default_value/>
+          <is_null_allowed>false</is_null_allowed>
+        </field>
+      </fields>
+    </class>
+
+
+
+
+
+
+    <class id="Service">
+      <fields>
+        <field id="urgency" xsi:type="AttributeEnum" _delta="define">
+          <values>
+            <value id="critical">critical</value>
+            <value id="high">high</value>
+            <value id="medium">medium</value>
+            <value id="low">low</value>
+          </values>
+          <sql>urgency</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+          <display_style>list</display_style>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="urgency" _delta="define">
+              <rank>51</rank>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="urgency" _delta="define">
+              <rank>21</rank>
+            </item>
+          </items>
+        </search>
+        <list>
+          <items>
+            <item id="urgency" _delta="define">
+              <rank>21</rank>
+            </item>
+          </items>
+        </list>
+      </presentation>
+    </class>
+
+
+    
+    <class id="UserRequest">
+      <fields>
+        <field id="resolving_duration" xsi:type="AttributeInteger" _delta="define">
+          <sql>resolving_duration</sql>
+          <default_value>0</default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+      </fields>
+      <lifecycle>
+        <states>
+          <state id="resolved">
+            <flags>
+              <attribute id="resolving_duration" _delta="define">
+                <must_prompt/>
+              </attribute>
+            </flags>
+          </state>
+        </states>
+      </lifecycle>
+      <presentation>
+        <details>
+          <items>
+            <item id="col:col3">
+              <rank>70</rank>
+              <items>
+                <item id="fieldset:Ticket:resolution">
+                  <rank>40</rank>
+                  <items>
+                  <item id="resolving_duration" _delta="define">
+                    <rank></rank>
+                  </item>
+                </items>
+              </item>
+            </items>
+          </item>
+          </items>
+        </details>
+      </presentation>
+<methods>
+  <method id="loadServiceCIs" _delta="define">
+          <static>false</static>
+          <access>protected</access>
+          <type>Overload-DBObject</type>
+          <code><![CDATA[
+protected function loadServiceCIs()
+{
+  if ($this->Get('service_id') !=''){
+            $service = MetaModel::GetObject(Service::class,$this->Get('service_id'),false);
+            $links1 = $this->Get('functionalcis_list');
+            $links = $service->Get('functionalcis_list')->ToArray();
+            foreach ($links as $link)
+            {
+                $ci_id = $link->Get('functionalci_id');
+                $lnkCItoTicket = MetaModel::NewObject('lnkFunctionalCIToTicket',[
+                    'ticket_id'=>0,
+                    'functionalci_id'=>$link->Get('functionalci_id'),
+                    'type'=>'service_ci'
+                ]);
+                $links1->AddItem($lnkCItoTicket);
+            }
+            $this->Set('functionalcis_list',$links1);
+        }
+}
+  ]]></code>
+        </method>
+
+        <method id="unloadServiceCIs" _delta="define">
+          <static>false</static>
+          <access>protected</access>
+          <type>Overload-DBObject</type>
+          <code><![CDATA[
+protected function unloadServiceCIs()
+{
+  $links = $this->Get('functionalcis_list')->ToArray();
+  $links1 = $this->Get('functionalcis_list');
+  
+  foreach ($links as $link) {
+    if($link->Get('type')=='service_ci')
+    {
+      $links1->removeItem($link->Get('id'));
+    }
+  }
+
+  $this->Set('functionalcis_list',$links1);
+}
+  ]]></code>
+        </method>
+
+
+<method id="OnInsert" _delta="redefine">
+          <static>false</static>
+          <access>protected</access>
+          <type>Overload-DBObject</type>
+          <code><![CDATA[
+protected function OnInsert()
+  {
+        parent::OnInsert();
+        $this->loadServiceCIs();
+
+    $this->ComputeImpactedItems();
+    $this->Set('last_update', time());
+    $this->Set('start_date', time());
+  }
+  ]]></code>
+        </method>
+
+        <method id="OnUpdate" _delta="redefine">
+          <static>false</static>
+          <access>protected</access>
+          <type>Overload-DBObject</type>
+          <code><![CDATA[
+protected function OnUpdate()
+  {
+        parent::OnUpdate();
+        $aChanges = $this->ListChanges();
+        if (array_key_exists('functionalcis_list', $aChanges))
+        {
+
+            $this->UpdateImpactedItems();
+        }
+        if (array_key_exists('service_id', $aChanges))
+        {
+          
+          $this->unloadServiceCIs();
+          $this->loadServiceCIs();
+            $this->UpdateImpactedItems();
+        }
+    $this->Set('last_update', time());
+    $this->UpdateChildRequestLog();
+  }
+  ]]></code>
+        </method>
+
+      </methods>
+    </class>
+
+    <class id="lnkFunctionalCIToTicket">
+      <fields>
+        <field id="type" xsi:type="AttributeEnum"  _delta="define">
+          <values>
+            <value id="service_ci">service_ci</value>
+            <value id="normal">normal</value>
+          </values>
+          <sql>type</sql>
+          <default_value>normal</default_value>
+          <is_null_allowed>false</is_null_allowed>
+          <display_style>list</display_style>
+        </field>
+      </fields>
+    </class>
+
+    <class id="ThirdParty" _delta="define">
+      <parent>Contact</parent>
+      <properties>
+        <comment><![CDATA[/**
+ * Persistent classes for a CMDB
+ *
+ * @copyright   Copyright (C) 2010-2017 Combodo SARL
+ * @license     http://opensource.org/licenses/AGPL-3.0
+ */]]></comment>
+        <category>bizmodel,searchable,structure</category>
+        <abstract>false</abstract>
+        <key_type>autoincrement</key_type>
+        <db_table>third_parties</db_table>
+        <db_key_field>id</db_key_field>
+        <db_final_class_field>finalclass</db_final_class_field>
+        <naming>
+          <attributes>
+            <attribute id="name"/>
+          </attributes>
+        </naming>
+        <icon>src/third-party.png</icon>
+        <reconciliation>
+          <attributes>
+            <attribute id="name"/>
+            <attribute id="org_id"/>
+            <attribute id="org_name"/>
+            <attribute id="email"/>
+          </attributes>
+        </reconciliation>
+      </properties>
+      <fields>
+        <field id="contact_point" xsi:type="AttributeString">
+          <sql>contact_point</sql>
+          <default_value />
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="address" xsi:type="AttributeText">
+          <sql>address</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="name">
+              <rank>10</rank>
+            </item>
+            <item id="status">
+              <rank>20</rank>
+            </item>
+            <item id="org_id">
+              <rank>30</rank>
+            </item>
+            <item id="email">
+              <rank>40</rank>
+            </item>
+            <item id="phone">
+              <rank>50</rank>
+            </item>
+            <item id="contact_point">
+              <rank>55</rank>
+            </item>
+            <item id="address">
+              <rank>60</rank>
+            </item>
+          </items>
+        </details>
+        <list>
+          <items>
+            <item id="name">
+              <rank>10</rank>
+            </item>
+            <item id="status">
+              <rank>20</rank>
+            </item>
+            <item id="org_id">
+              <rank>30</rank>
+            </item>
+            <item id="email">
+              <rank>40</rank>
+            </item>
+            <item id="phone">
+              <rank>50</rank>
+            </item>
+            <item id="contact_point">
+              <rank>55</rank>
+            </item>
+            <item id="address">
+              <rank>60</rank>
+            </item>
+          </items>
+        </list>
+        <search>
+          <items>
+            <item id="name">
+              <rank>10</rank>
+            </item>
+            <item id="status">
+              <rank>20</rank>
+            </item>
+            <item id="org_id">
+              <rank>30</rank>
+            </item>
+            <item id="email">
+              <rank>40</rank>
+            </item>
+            <item id="phone">
+              <rank>50</rank>
+            </item>
+            <item id="contact_point">
+              <rank>55</rank>
+            </item>
+            <item id="address">
+              <rank>60</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+      <methods/>
+    </class>
+
+
+
+    <class id="DeviceType" _delta="define">
+      <parent>cmdbAbstractObject</parent>
+      <properties>
+        <comment><![CDATA[/**
+ * Persistent classes for a CMDB
+ *
+ * @copyright   Copyright (C) 2010-2017 Combodo SARL
+ * @license     http://opensource.org/licenses/AGPL-3.0
+ */]]></comment>
+        <category>bizmodel,searchable,structure</category>
+        <abstract>false</abstract>
+        <key_type>autoincrement</key_type>
+        <db_table>device_types</db_table>
+        <db_key_field>id</db_key_field>
+        <db_final_class_field>finalclass</db_final_class_field>
+        <naming>
+          <attributes>
+            <attribute id="title"/>
+          </attributes>
+        </naming>
+        <icon></icon>
+        <reconciliation>
+          <attributes>
+            <attribute id="title"/>
+          </attributes>
+        </reconciliation>
+      </properties>
+      <fields>
+        <field id="title" xsi:type="AttributeString">
+          <sql>title</sql>
+          <default_value />
+          <is_null_allowed>false</is_null_allowed>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="title">
+              <rank>10</rank>
+            </item>
+          </items>
+        </details>
+        <list>
+          <items>
+            <item id="title">
+              <rank>10</rank>
+            </item>
+          </items>
+        </list>
+        <search>
+          <items>
+            <item id="title">
+              <rank>10</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+      <methods/>
+    </class>
+
+    <class id="DeviceDetail" _delta="define">
+      <parent>cmdbAbstractObject</parent>
+      <properties>
+        <comment><![CDATA[/**
+ * Persistent classes for a CMDB
+ *
+ * @copyright   Copyright (C) 2010-2017 Combodo SARL
+ * @license     http://opensource.org/licenses/AGPL-3.0
+ */]]></comment>
+        <category>bizmodel,searchable,structure</category>
+        <abstract>false</abstract>
+        <key_type>autoincrement</key_type>
+        <db_table>device_details</db_table>
+        <db_key_field>id</db_key_field>
+        <db_final_class_field>finalclass</db_final_class_field>
+        <naming>
+          <attributes>
+            <attribute id="title"/>
+          </attributes>
+        </naming>
+        <icon></icon>
+        <reconciliation>
+          <attributes>
+            <attribute id="title"/>
+          </attributes>
+        </reconciliation>
+      </properties>
+      <fields>
+        <field id="title" xsi:type="AttributeString">
+          <sql>title</sql>
+          <default_value />
+          <is_null_allowed>false</is_null_allowed>
+        </field>
+        <field id="device_type" xsi:type="AttributeExternalKey">
+          <filter><![CDATA[SELECT DeviceType]]></filter>
+          <sql>device_type</sql>
+          <target_class>DeviceType</target_class>
+          <is_null_allowed>false</is_null_allowed>
+          <on_target_delete>DEL_MANUAL</on_target_delete>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="title">
+              <rank>10</rank>
+            </item>
+            <item id="device_type">
+              <rank>20</rank>
+            </item>
+          </items>
+        </details>
+        <list>
+          <items>
+            <item id="title">
+              <rank>10</rank>
+            </item>
+            <item id="device_type">
+              <rank>20</rank>
+            </item>
+          </items>
+        </list>
+        <search>
+          <items>
+            <item id="title">
+              <rank>10</rank>
+            </item>
+            <item id="device_type">
+              <rank>20</rank>
+            </item>
+          </items>
+        </search>
+      </presentation>
+      <methods/>
+    </class>
+
+    <class id="Peripheral">
+      <fields>
+        <field id="device_type" xsi:type="AttributeExternalKey" _delta="redefine">
+          <sql>device_type</sql>
+          <target_class>DeviceType</target_class>
+          <is_null_allowed>false</is_null_allowed>
+          <on_target_delete>DEL_MANUAL</on_target_delete>
+        </field>
+        <field id="device_detail" xsi:type="AttributeExternalKey" _delta="define">
+          <filter><![CDATA[SELECT DeviceDetail WHERE device_type=:this->device_type]]></filter>
+          <dependencies>
+            <attribute id="device_type"/>
+          </dependencies>
+          <sql>device_detail</sql>
+          <target_class>DeviceDetail</target_class>
+          <is_null_allowed>false</is_null_allowed>
+          <on_target_delete>DEL_MANUAL</on_target_delete>
+        </field>
+      </fields>
+      <presentation>
+        <details>
+          <items>
+            <item id="device_type" _delta="redefine">
+              <rank>58</rank>
+            </item>
+            <item id="device_detail" _delta="define">
+              <rank>59</rank>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="device_type" _delta="redefine">
+              <rank>58</rank>
+            </item>
+            <item id="device_detail" _delta="define">
+              <rank>59</rank>
+            </item>
+          </items>
+        </search>
+        <list>
+          <items>
+            <item id="device_type" _delta="define">
+              <rank>58</rank>
+            </item>
+            <item id="device_detail" _delta="define">
+              <rank>59</rank>
+            </item>
+          </items>
+        </list>
+
+      </presentation>
+    </class>
+
+
+
+
+
+
+
+
+  </classes>
+    <user_rights>
+    <groups>
+      <group id="UserLogin" _delta="define">
+        <classes>
+          <class id="UserLogin" />
+        </classes>
+      </group>
+    </groups>
+    <profiles>
+      <profile id="2">
+        <groups>
+          <group id="UserLogin" _delta="define">
+            <actions>
+              <action id="action:write">allow</action>
+              <action id="action:read">allow</action>
+              <action id="action:delete">allow</action>
+            </actions>
+          </group>
+        </groups>
+      </profile>
+      <profile id="3">
+        <groups>
+          <group id="UserLogin" _delta="define">
+            <actions>
+              <action id="action:write">allow</action>
+              <action id="action:read">allow</action>
+              <action id="action:delete">allow</action>
+            </actions>
+          </group>
+        </groups>
+      </profile>
+      <profile id="4">
+        <groups>
+          <group id="UserLogin" _delta="define">
+            <actions>
+              <action id="action:write">allow</action>
+              <action id="action:read">allow</action>
+              <action id="action:delete">allow</action>
+            </actions>
+          </group>
+        </groups>
+      </profile>
+      <profile id="5">
+        <groups>
+          <group id="UserLogin" _delta="define">
+            <actions>
+              <action id="action:write">allow</action>
+              <action id="action:read">allow</action>
+              <action id="action:delete">allow</action>
+            </actions>
+          </group>
+        </groups>
+      </profile>
+      <profile id="6">
+        <groups>
+          <group id="UserLogin" _delta="define">
+            <actions>
+              <action id="action:write">allow</action>
+              <action id="action:read">allow</action>
+              <action id="action:delete">allow</action>
+            </actions>
+          </group>
+        </groups>
+      </profile>
+      <profile id="7">
+        <groups>
+          <group id="UserLogin" _delta="define">
+            <actions>
+              <action id="action:write">allow</action>
+              <action id="action:read">allow</action>
+              <action id="action:delete">allow</action>
+            </actions>
+          </group>
+        </groups>
+      </profile>
+      <profile id="8">
+        <groups>
+          <group id="UserLogin" _delta="define">
+            <actions>
+              <action id="action:write">allow</action>
+              <action id="action:read">allow</action>
+              <action id="action:delete">allow</action>
+            </actions>
+          </group>
+        </groups>
+      </profile>
+      <profile id="9">
+        <groups>
+          <group id="UserLogin" _delta="define">
+            <actions>
+              <action id="action:write">allow</action>
+              <action id="action:read">allow</action>
+              <action id="action:delete">allow</action>
+            </actions>
+          </group>
+        </groups>
+      </profile>
+      <profile id="10">
+        <groups>
+          <group id="UserLogin" _delta="define">
+            <actions>
+              <action id="action:write">allow</action>
+              <action id="action:read">allow</action>
+              <action id="action:delete">allow</action>
+            </actions>
+          </group>
+        </groups>
+      </profile>
+      <profile id="11">
+        <groups>
+          <group id="UserLogin" _delta="define">
+            <actions>
+              <action id="action:write">allow</action>
+              <action id="action:read">allow</action>
+              <action id="action:delete">allow</action>
+            </actions>
+          </group>
+        </groups>
+      </profile>
+      <profile id="12">
+        <groups>
+          <group id="UserLogin" _delta="define">
+            <actions>
+              <action id="action:write">allow</action>
+              <action id="action:read">allow</action>
+              <action id="action:delete">allow</action>
+            </actions>
+          </group>
+        </groups>
+      </profile>
+
+    </profiles>
+  </user_rights>
+</itop_design>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

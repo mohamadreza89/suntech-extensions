@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
+  <constants>
+  </constants>
+  <classes>
+    <class id="UserHardware" _delta="define">
+      <parent>cmdbAbstractObject</parent>
+      <properties>
+        <comment><![CDATA[/**
+ * Persistent classes for a CMDB
+ *
+ * @copyright   Copyright (C) 2010-2017 Combodo SARL
+ * @license     http://opensource.org/licenses/AGPL-3.0
+ */]]></comment>
+        <category>bizmodel,searchable,structure</category>
+        <abstract>false</abstract>
+        <key_type>autoincrement</key_type>
+        <db_table>user_hardware</db_table>
+        <db_key_field>id</db_key_field>
+        <db_final_class_field>finalclass</db_final_class_field>
+        <reconciliation>
+          <attributes>
+            <attribute id="contact_id" />
+          </attributes>
+        </reconciliation>
+      </properties>
+      <fields>
+        <field id="contact_id" xsi:type="AttributeInteger">
+          <sql>contact_id</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="serial_number" xsi:type="AttributeString">
+          <sql>serial_number</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="mac_id" xsi:type="AttributeString">
+          <sql>mac_id</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="description" xsi:type="AttributeString">
+          <sql>description</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="datetime" xsi:type="AttributeString">
+          <sql>datetime</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="hardware_type" xsi:type="AttributeString">
+          <sql>hardware_type</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="username" xsi:type="AttributeString">
+          <sql>username</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="status" xsi:type="AttributeString">
+          <sql>status</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="confirmed" xsi:type="AttributeString">
+          <sql>confirmed</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+      </fields>
+      <methods>
+      </methods>
+      <presentation>
+        <details>
+          <items>
+            <item id="contact_id">
+              <rank>10</rank>
+            </item>
+            <item id="serial_number">
+              <rank>20</rank>
+            </item>
+            <item id="mac_id">
+              <rank>30</rank>
+            </item>
+            <item id="description">
+              <rank>40</rank>
+            </item>
+            <item id="datetime">
+              <rank>50</rank>
+            </item>
+            <item id="hardware_type">
+              <rank>60</rank>
+            </item>
+            <item id="username">
+              <rank>70</rank>
+            </item>
+            <item id="status">
+              <rank>80</rank>
+            </item>
+            <item id="confirmed">
+              <rank>90</rank>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="contact_id">
+              <rank>10</rank>
+            </item>
+            <item id="serial_number">
+              <rank>20</rank>
+            </item>
+            <item id="mac_id">
+              <rank>30</rank>
+            </item>
+            <item id="description">
+              <rank>40</rank>
+            </item>
+            <item id="datetime">
+              <rank>50</rank>
+            </item>
+            <item id="hardware_type">
+              <rank>60</rank>
+            </item>
+            <item id="username">
+              <rank>70</rank>
+            </item>
+            <item id="status">
+              <rank>80</rank>
+            </item>
+            <item id="confirmed">
+              <rank>90</rank>
+            </item>
+          </items>
+        </search>
+        <list>
+          <items>
+            <item id="contact_id">
+              <rank>10</rank>
+            </item>
+            <item id="serial_number">
+              <rank>20</rank>
+            </item>
+            <item id="mac_id">
+              <rank>30</rank>
+            </item>
+            <item id="description">
+              <rank>40</rank>
+            </item>
+            <item id="datetime">
+              <rank>50</rank>
+            </item>
+            <item id="hardware_type">
+              <rank>60</rank>
+            </item>
+            <item id="username">
+              <rank>70</rank>
+            </item>
+            <item id="status">
+              <rank>80</rank>
+            </item>
+            <item id="confirmed">
+              <rank>90</rank>
+            </item>
+          </items>
+        </list>
+      </presentation>
+    </class>
+    <class id="UserSoftware" _delta="define">
+      <parent>cmdbAbstractObject</parent>
+      <properties>
+        <comment><![CDATA[/**
+ * Persistent classes for a CMDB
+ *
+ * @copyright   Copyright (C) 2010-2017 Combodo SARL
+ * @license     http://opensource.org/licenses/AGPL-3.0
+ */]]></comment>
+        <category>bizmodel,searchable,structure</category>
+        <abstract>false</abstract>
+        <key_type>autoincrement</key_type>
+        <db_table>user_software</db_table>
+        <db_key_field>id</db_key_field>
+        <db_final_class_field>finalclass</db_final_class_field>
+        <reconciliation>
+          <attributes>
+            <attribute id="contact_id" />
+          </attributes>
+        </reconciliation>
+      </properties>
+      <fields>
+        <field id="contact_id" xsi:type="AttributeInteger">
+          <sql>contact_id</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="username" xsi:type="AttributeString">
+          <sql>username</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="software_title" xsi:type="AttributeString">
+          <sql>software_title</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="description" xsi:type="AttributeString">
+          <sql>description</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="datetime" xsi:type="AttributeString">
+          <sql>datetime</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="status" xsi:type="AttributeString">
+          <sql>status</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+        <field id="confirmed" xsi:type="AttributeString">
+          <sql>confirmed</sql>
+          <default_value></default_value>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+      </fields>
+      <methods>
+      </methods>
+      <presentation>
+        <details>
+          <items>
+            <item id="contact_id">
+              <rank>10</rank>
+            </item>
+            <item id="username">
+              <rank>20</rank>
+            </item>
+            <item id="description">
+              <rank>40</rank>
+            </item>
+            <item id="datetime">
+              <rank>50</rank>
+            </item>
+            <item id="status">
+              <rank>80</rank>
+            </item>
+            <item id="confirmed">
+              <rank>90</rank>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="contact_id">
+              <rank>10</rank>
+            </item>
+            <item id="username">
+              <rank>20</rank>
+            </item>
+            <item id="description">
+              <rank>40</rank>
+            </item>
+            <item id="datetime">
+              <rank>50</rank>
+            </item>
+            <item id="status">
+              <rank>80</rank>
+            </item>
+            <item id="confirmed">
+              <rank>90</rank>
+            </item>
+          </items>
+        </search>
+        <list>
+          <items>
+            <item id="contact_id">
+              <rank>10</rank>
+            </item>
+            <item id="username">
+              <rank>20</rank>
+            </item>
+            <item id="description">
+              <rank>40</rank>
+            </item>
+            <item id="datetime">
+              <rank>50</rank>
+            </item>
+            <item id="status">
+              <rank>80</rank>
+            </item>
+            <item id="confirmed">
+              <rank>90</rank>
+            </item>
+          </items>
+        </list>
+      </presentation>
+    </class>
+  </classes>
+  <menus>
+  </menus>
+  <user_rights>
+    <groups>
+    </groups>
+    <profiles>
+    </profiles>
+  </user_rights>
+</itop_design>
